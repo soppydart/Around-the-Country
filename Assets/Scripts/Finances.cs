@@ -47,10 +47,4 @@ public class Finances : MonoBehaviour
             ownedCard[i] = -1;
         }
     }
-
-
-    void Update()
-    {
-
-    }
 }

@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -69,7 +69,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -16612,7 +16612,7 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       ZRPGBeach_328: -1604748560
-      ZRPGBeach_289: 2125424546
+      ZRPGBeach_610: 1763110584
       ZRPGBeach_25: -1452893989
       ZRPGBeach_9: 1073403669
       ZRPGBeach_504: 1220613967
@@ -16638,17 +16638,17 @@ TextureImporter:
       ZRPGBeach_349: -55652958
       ZRPGBeach_684: -596546747
       ZRPGBeach_1: 1780334313
-      ZRPGBeach_56: 1995159751
-      ZRPGBeach_370: -1395950461
+      ZRPGBeach_2: 2123366633
+      ZRPGBeach_369: -214400964
       ZRPGBeach_42: 366720131
       ZRPGBeach_417: -1962296117
-      ZRPGBeach_369: -214400964
+      ZRPGBeach_370: -1395950461
       ZRPGBeach_346: -1433979546
       ZRPGBeach_468: 1993405296
       ZRPGBeach_630: 1822799991
       ZRPGBeach_159: -1529621178
       ZRPGBeach_558: 1606520725
-      ZRPGBeach_2: 2123366633
+      ZRPGBeach_56: 1995159751
       ZRPGBeach_566: 1389448204
       ZRPGBeach_709: 1983078481
       ZRPGBeach_18: 1087479182
@@ -17393,9 +17393,9 @@ TextureImporter:
       ZRPGBeach_686: -984051376
       ZRPGBeach_336: -2085712166
       ZRPGBeach_586: 167765761
-      ZRPGBeach_610: 1763110584
       ZRPGBeach_250: 23113517
       ZRPGBeach_262: 686251059
+      ZRPGBeach_289: 2125424546
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

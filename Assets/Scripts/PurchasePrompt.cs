@@ -29,15 +29,11 @@ public class PurchasePrompt : MonoBehaviour
         int index = FindObjectOfType<GameController>().index;
         gameController.Players[playerIndex].GetComponent<Player>().money -= finances.prices[index];
         finances.ownedCard[index] = playerIndex;
-        //gameController.ChangePlayerMoney(finances.prices[index]);
-        //purchasePrompt.SetActive(false);
+
     }
     public void No()
     {
         int index = FindObjectOfType<GameController>().index;
-        //gameController.ChangePlayerMoney(-finances.loss[index]);
-        // Debug.Log(index);
-        // Debug.Log(finances.loss[index]);
         gameController.Players[playerIndex].GetComponent<Player>().money -= finances.loss[index];
         lossPromptText.text = FindObjectOfType<Finances>().lossMessage[index];
     }

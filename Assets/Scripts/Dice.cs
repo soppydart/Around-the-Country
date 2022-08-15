@@ -39,8 +39,8 @@ public class Dice : MonoBehaviour
             GetComponent<AudioSource>().Play();
             yield return new WaitForSeconds(diceRollTime / 20.0f);
         }
-        //GameObject.Find("DiceRollSound").gameObject.SetActive(false);
         gameController.diceSideThrown = randomDiceSide + 1;
+        gameController.Players[whosTurn].GetComponent<Player>().diceSide = randomDiceSide + 1;
         gameController.MovePlayer(whosTurn);
         gameController.playerIsMoving = true;
         whosTurn = (whosTurn + 1) % 4;

@@ -60,7 +60,6 @@ public class GameController : MonoBehaviour
     public bool gameOver = false;
     public bool isAnyPromptActive = false;
     public int TotalNumberOfTurns = 0;
-    InGamePrompt inGamePrompt;
     public int gameHasStarted = -1;
     Finances finances;
     Dice dice;
@@ -68,26 +67,19 @@ public class GameController : MonoBehaviour
     int[] arr = { 3, 0, 2, 1 };
     int highestMoneyIndex = 0;
 
+    //This is for the canvas that shows the current round number
+    [SerializeField] GameObject RoundsCanvas;
+    [SerializeField] TextMeshProUGUI RoundNumber;
+
     public bool playerIsMoving = false;
     void Start()
     {
-        for (int i = 0; i < 4; i++)
-        {
-            StartingCompanies.startingCompanies[i] = arr[i];
-        }
         for (int i = 0; i < Players.Length; i++)
             Players[i].GetComponent<Player>().moveAllowed = false;
-        for (int i = 0; i < Players.Length; i++)
-        {
-            // GameObject temp = Players[i];
-            // Players[i] = Players[StartingCompanies.startingCompanies[i]];
-            // Players[StartingCompanies.startingCompanies[i]] = temp;
-        }
         whoWinsText.gameObject.SetActive(false);
         Players[0].GetComponent<Player>().moveAllowed = true;
         TotalNumberOfTurns = Players.Length * 10;
         round = 0;
-        inGamePrompt = FindObjectOfType<InGamePrompt>();
         finances = FindObjectOfType<Finances>();
         dice = FindObjectOfType<Dice>();
         ProgressBar.value = 0;
@@ -95,11 +87,9 @@ public class GameController : MonoBehaviour
     }
     bool flag = true;
     bool flagnew = true;
-    // [SerializeField] bool[] flag3;
-    // int finalPositionIndex = 0;
-    // [SerializeField] int[] startPosition;
     void Update()
     {
+        UpdateRoundNumber();
         if (playerIsMoving)
             GetComponent<AudioSource>().Play();
         for (int i = 0; i < 4; i++)
@@ -123,7 +113,6 @@ public class GameController : MonoBehaviour
         else
         {
             CompaniesAllottmentCanvas.gameObject.SetActive(false);
-            //RoundOverPromptAllowed();
             if (flag)
             {
                 isAnyPromptActive = false;
@@ -131,7 +120,6 @@ public class GameController : MonoBehaviour
                 GameObject.Find("A Melancholic Existence").SetActive(false);
 
             }
-            // companiesAlotted = 0;
             Sort();
             if (flagnew)
             {
@@ -140,20 +128,12 @@ public class GameController : MonoBehaviour
             }
             PlayerTurnCanvas.gameObject.SetActive(true);
             ScoreCanvas.gameObject.SetActive(true);
-
+            RoundsCanvas.gameObject.SetActive(true);
         }
         for (int i = 0; i < Players.Length; i++)
         {
-            // Players[i].GetComponent<Player>().waypointIndex %= 24;
-            // if (Players[i].GetComponent<Player>().waypointIndex == 0 && playerStartWaypoint[i] + diceSideThrown > 23)
-            // {
-            //     int finalPositionIndex = playerStartWaypoint[i] + diceSideThrown;
-            //     diceSideThrown = finalPositionIndex - 23 - playerStartWaypoint[i];
-            // }
             if (Players[i].GetComponent<Player>().waypointIndex > playerStartWaypoint[i] + diceSideThrown)
             {
-                // Debug.Log("Player " + (i + 1) + " Location is " + (Players[i].GetComponent<Player>().waypointIndex - 1) +
-                // " Destination is " + (playerStartWaypoint[i] + diceSideThrown));
                 Players[i].GetComponent<Player>().moveAllowed = false;
                 if (Players[i].GetComponent<Player>().waypointIndex != 24)
                     playerStartWaypoint[i] = Players[i].GetComponent<Player>().waypointIndex % 24 - 1;
@@ -170,7 +150,6 @@ public class GameController : MonoBehaviour
                     jailPrompt.gameObject.SetActive(true);
                     jailPromptText.text = usernames[dice.whosTurn] + " got out of Jail.";
                     dice.whosTurn = (dice.whosTurn + 1) % 4;
-                    //Players[(i + 1) % 4].GetComponent<Player>().moveAllowed = true;
                     TotalNumberOfTurns--;
                 }
             }
@@ -183,6 +162,16 @@ public class GameController : MonoBehaviour
         GameOverCanvas.gameObject.SetActive(true);
         winner.text = usernames[highestMoneyIndex] + " has won the game!!";
     }
+    int roundNumber = 1;
+    void UpdateRoundNumber()
+    {
+        RoundNumber.text = "Round " + roundNumber.ToString();
+    }
+    public void IncreaseRoundNumber()
+    {
+        if (roundNumber < 10)
+            roundNumber++;
+    }
     public void MovePlayer(int PlayerToMove)
     {
         playerIndex = PlayerToMove;
@@ -193,10 +182,7 @@ public class GameController : MonoBehaviour
     }
     void InteractWithBoard(int i)
     {
-        // Debug.Log("i is " + i);
         index = playerStartWaypoint[i];
-        Debug.Log("Player startway point is " + playerStartWaypoint[i]);
-        Debug.Log("Player way point index is " + Players[i].GetComponent<Player>().waypointIndex);
         if (Players[i].transform.position == Players[i].GetComponent<Player>().waypoints[playerStartWaypoint[i]].transform.position)
         {
             currentPlayerIndex = i;
@@ -216,7 +202,6 @@ public class GameController : MonoBehaviour
                     GamePromptCanvas.gameObject.SetActive(true);
                     mysteryPrompt.gameObject.SetActive(true);
                     int randomNumber = UnityEngine.Random.Range(0, 5);
-                    // Debug.Log(randomNumber);
                     mysteryPromptText.text = FindObjectOfType<Finances>().mysteryCards[randomNumber];
                     Players[i].GetComponent<Player>().money -= finances.mysteryLoss[randomNumber];
                 }
@@ -228,9 +213,6 @@ public class GameController : MonoBehaviour
                     lossPromptText.text = FindObjectOfType<Finances>().lossMessage[index];
                     Players[i].GetComponent<Player>().money -= finances.loss[index];
                     Players[i].GetComponent<Player>().moveAllowed = false;
-                    // Players[i].transform.position = Vector2.MoveTowards(Players[i].transform.position,
-                    // Jail.transform.position,
-                    // FindObjectOfType<Player>().moveSpeed * Time.deltaTime);
                 }
                 else if (finances.ownedCard[index] == -1)
                 {
@@ -260,21 +242,16 @@ public class GameController : MonoBehaviour
             else
             if (gameHasStarted != -1)
                 RoundOverPromptAllowed();
-            // if (!isAnyPromptActive)
-            //     dice.rollAllowed = true;
             playerIsMoving = false;
         }
     }
     void ShowStartingCompaniesScore(int i)
     {
-        Debug.Log("Printing whose turn" + dice.whosTurn);
         PlayerTurn.text = usernames[dice.whosTurn] + "'s turn";
         if (i == 0)
         {
-            //isRoundOverNow = true;
             round++;
             isAnyPromptActive = true;
-            //Debug.Log("Start Comp promt is active");
             StartingCompaniesCanvas.SetActive(true);
             StartingCompaniesPrompt.SetActive(true);
             for (int j = 0; j < Players.Length; j++)
@@ -294,21 +271,10 @@ public class GameController : MonoBehaviour
                 }
             }
         }
-        // if (TotalNumberOfTurns == 0 && !isAnyPromptActive && !playerIsMoving)
-        // {
-        //     gameOver = true;
-        //     StartCoroutine("EndGame");
-        // }
     }
-    public void SetRoundOverFalse()
-    {
-        //isRoundOverNow = false;
-    }
-    // bool isRoundOver = false;
     public void RoundOverPromptAllowed()
     {
         PlayerTurn.text = usernames[currentPlayerIndex] + "'s turn";
-        // TurnNumber.text = "Round " + (round + 1).ToString();
         ProgressBar.value = 40 - TotalNumberOfTurns;
         isAnyPromptActive = false;
         ShowStartingCompaniesScore(dice.whosTurn);
@@ -331,9 +297,6 @@ public class GameController : MonoBehaviour
             CompanyBuyersText[i].text = usernames[i] + ", " + finances.CompanyBuyerName[i] + " wants to buy your company for Rs. " +
             finances.CompanyBuyerPrices[i] + ". Would you like to sell your company?";
         }
-        // CompanyBuyersCanvas.gameObject.SetActive(false);
-        // Debug.Log("Canvas is not active");
-        // isAnyPromptActive = false;
     }
     public void ClosePrompt()
     {
@@ -356,12 +319,9 @@ public class GameController : MonoBehaviour
     int usernamesEntered = 0;
     public void UsernameSubmit()
     {
-        //if (!String.Equals(usernames[usernamesEntered], ""))
-        //{
         usernames[usernamesEntered] = nameEntered.text.ToString();
         usernamesEntered++;
         nameEntered.text = "";
-        //}
     }
     public void UsernameClear()
     {
@@ -406,11 +366,6 @@ public class GameController : MonoBehaviour
                     int temp = AlottedCompaniesIndex[j + 1];
                     AlottedCompaniesIndex[j + 1] = AlottedCompaniesIndex[j];
                     AlottedCompaniesIndex[j] = temp;
-
-                    // GameObject temp1 = Players[j + 1];
-                    // Players[j + 1] = Players[j];
-                    // Players[j] = temp1;
-
                     string temp2 = usernames[j + 1];
                     usernames[j + 1] = usernames[j];
                     usernames[j] = temp2;

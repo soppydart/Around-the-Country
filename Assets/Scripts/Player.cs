@@ -6,6 +6,7 @@ using TMPro;
 
 public class Player : MonoBehaviour
 {
+    public int diceSide;
     [SerializeField] public Transform[] waypoints;
     [SerializeField] public float moveSpeed = 1f;
     [SerializeField] public int waypointIndex = 0;
@@ -18,7 +19,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         transform.position = waypoints[waypointIndex].transform.position;
-
     }
     void Update()
     {
@@ -34,11 +34,9 @@ public class Player : MonoBehaviour
             isInJail = false;
             return;
         }
-        //Debug.Log("HIj " + waypointIndex);
-        //if (!FindObjectOfType<GameController>().shittyBug)
-        transform.position = Vector2.MoveTowards(transform.position, waypoints[waypointIndex % 24].transform.position, moveSpeed * Time.deltaTime);
-        //else
-        //   transform.position = Vector2.MoveTowards(transform.position, waypoints[waypointIndex - 24].transform.position, moveSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards
+        (transform.position, waypoints[waypointIndex % 24].transform.position,
+        moveSpeed * (diceSide + 4) / 10.0f * Time.deltaTime);
         if (transform.position == waypoints[waypointIndex % 24].transform.position)
             waypointIndex++;
     }
