@@ -8,22 +8,25 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Sprites/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Main Menu.unity
     guid: 1660e61ccb6d79a4cacb7052483d39e0
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Rules.unity
     guid: 95e219263e376214c9ee71afbf9fb26a
   - enabled: 0
-    path: Assets/Scenes/UsernameScreen.unity
-    guid: f64eebb76d4779247ab226d67f02dcc2
-  - enabled: 0
-    path: Assets/Scenes/StartingCompanies.unity
-    guid: 5a4d94f482227c548993cb03667c2692
-  - enabled: 1
     path: Assets/Scenes/Scene1.unity
     guid: 128ba56baa7e1854ba8f2539ac611355
   - enabled: 0
-    path: Assets/Scenes/Game Over.unity
-    guid: ff13245321672a749b30d27d59a585dd
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: 3cd84c2d512a1d643bab71af984bf3e7
+  - enabled: 0
+    path: Assets/Scenes/Waiting Room.unity
+    guid: a7d02ecfeab782e4ea45930fe324ba0a
+  - enabled: 1
+    path: Assets/Scenes/Scene2.unity
+    guid: 3ef3210ad59c17b4384df85ef9d09aed
   m_configObjects: {}
