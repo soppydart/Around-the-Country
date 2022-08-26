@@ -16,8 +16,8 @@ public class PlayerListItem : MonoBehaviourPunCallbacks
     public void SetUp(Photon.Realtime.Player playerInfo)
     {
         player = playerInfo;
-        Debug.Log(playerInfo.NickName);
-        Debug.Log(playerText.text);
+        // Debug.Log(playerInfo.NickName);
+        // Debug.Log(playerText.text);
         playerText.text = playerInfo.NickName;
     }
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)

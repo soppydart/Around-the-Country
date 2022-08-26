@@ -21,7 +21,6 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     [SerializeField] GameObject roomListItemPrefab;
     [SerializeField] Transform playerListContent;
     [SerializeField] GameObject playerListItemPrefab;
-    const string playerNamePrefKey = "PlayerName";
     void Awake()
     {
         Instance = this;
@@ -46,9 +45,10 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
         createRoomCanvas.gameObject.SetActive(false);
         joinRoomCanvas.gameObject.SetActive(false);
         roomNameText.text = PhotonNetwork.CurrentRoom.Name;
-        for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
+        foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
         {
-            Instantiate(playerListItemPrefab, playerListContent).GetComponent<PlayerListItem>().SetUp(PhotonNetwork.PlayerList[i]);
+            Instantiate(playerListItemPrefab, playerListContent).
+            GetComponent<PlayerListItem>().SetUp(player);
         }
     }
     public void ClearGameName()
@@ -58,6 +58,7 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     public void LeaveRoom()
     {
         PhotonNetwork.LeaveRoom();
+        PhotonNetwork.Disconnect();
     }
     public override void OnLeftRoom()
     {
@@ -88,6 +89,7 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     }
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newplayer)
     {
-        Instantiate(playerListItemPrefab, playerListContent).GetComponent<PlayerListItem>().SetUp(newplayer);
+        Instantiate(playerListItemPrefab, playerListContent).
+            GetComponent<PlayerListItem>().SetUp(newplayer);
     }
 }
