@@ -2,6 +2,5 @@
 A board game made using Unity.
 <br/>
 
-Download v1.1 for windows: [x32](https://drive.google.com/uc?export=download&id=1hb25e2zZbdxiis7UKaI12NB5O8dWZIgh) [x64](https://drive.google.com/uc?export=download&id=1ryfII3wxTErIUal8c448YOdZ2La3s4kY)</br>
-Download v1.1 for Linux: [Mono](https://drive.google.com/drive/folders/1fWEn9_GSbxU715dpHZwRUCJc6VK_K3XL?usp=sharing)<br/>
-Play the web version on itch.io [here](https://soppydart.itch.io/around-the-country).
+Download v1.1.1 for windows: [x86](https://drive.google.com/uc?export=download&id=1fVF3WW8iTdyNBZ4wo4vQDfg4bFNXi5nq) [x64](https://drive.google.com/uc?export=download&id=1P3Ipas6cYqS0FASXkng1FLNdu-FU6ycm)</br>
+Play the web version [here.](https://soppydart.itch.io/around-the-country).
